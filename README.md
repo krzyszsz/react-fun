@@ -1,6 +1,6 @@
 ## Playing with react.
 
-[![Build Status](https://dev.azure.com/krzysztofjaniszewski0334/React-fun/_apis/build/status/krzyszsz.React-fun?branchName=master)](https://dev.azure.com/krzysztofjaniszewski0334/React-fun/_build/latest?definitionId=1&branchName=master)
+[![Build Status](https://dev.azure.com/krzysztofjaniszewski0334/React-fun/_apis/build/status/krzyszsz.React-fun?branchName=master)](https://dev.azure.com/krzysztofjaniszewski0334/React-fun/_build/latest?definitionId=2&branchName=master)
 
 
 Following this tutorial: https://github.com/Microsoft/TypeScript-React-Starter
