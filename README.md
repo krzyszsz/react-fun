@@ -1,4 +1,4 @@
-Playing with react.
+## Playing with react.
 
 
 Following this tutorial: https://github.com/Microsoft/TypeScript-React-Starter
