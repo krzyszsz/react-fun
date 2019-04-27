@@ -24,7 +24,7 @@ steps:
   inputs:
     sourceFolder: build # Optional
     #contents: '**' 
-    targetFolder: buildCopy
+    targetFolder: '$(Build.ArtifactStagingDirectory)/buildCopy'
 
 - task: PublishBuildArtifacts@1
   inputs:
