@@ -7,7 +7,8 @@ Following this tutorial: https://github.com/Microsoft/TypeScript-React-Starter b
 
 npm install -g create-react-app
 create-react-app react-fun --typescript
-# + configured CI with unit tests
+
+Later: configured CI with unit tests
 
 Later: added sample module with binary search (using generics in TypeScript) with unit tests.
 
