@@ -53,8 +53,6 @@ function init() : void {
 
 function generateImageArray() : void
 {
-    const t = new Date().getTime();
-
     if (firstFrameToRender) {
         for (let x=0; x<sizeX; x++) {
             imageArray[x] = new Array<[number, number, number]>(sizeY);
