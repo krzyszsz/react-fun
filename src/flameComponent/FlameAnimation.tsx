@@ -90,7 +90,7 @@ function generateImageArray() : void
 
                 Math.sqrt(y / sizeY) *
                 (
-                    (imageArray[x][y][0] * 0.15) + 
+                    (imageArray[x][y][0] * 0.08) + 
                     (imageArray[x][y+1][0] * 0.9 * localRandom1) +
                     (x > 1 ? imageArray[x-1][y][0] * (randomPrevious + localRandom2) * 0.5 : 0) +
                     (x < sizeX-1 ? imageArray[x+1][y][0] * (-randomPrevious + localRandom3) * 0.5 : 0) +
@@ -105,7 +105,7 @@ function generateImageArray() : void
         }
 
         // Initialization vector - line on the bottom of the fire:
-        imageArray[x][sizeY-1] = [normalizeColor(  Math.abs(Math.sin(x * (2 * Math.PI) / _fireWidth )) ) ,
+        imageArray[x][sizeY-1] = [normalizeColor(  Math.abs(Math.sin(x * (2 * Math.PI) / (_fireWidth*2) )) ) ,
              0,
              0];
     }
