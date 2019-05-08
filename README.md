@@ -6,6 +6,7 @@
 Following this tutorial: https://github.com/Microsoft/TypeScript-React-Starter but implementing my own components.
 
 npm install -g create-react-app
+
 create-react-app react-fun --typescript
 
 Later: configured CI with unit tests
@@ -17,6 +18,8 @@ Later: added a simple animation component (a flame effect).
 TODO: Play with state of components.
 
 Installing Material-UI components to add slidebar: ( https://material-ui.com/getting-started/installation/ )
+
 npm install @material-ui/core
+
 npm install @material-ui/lab
 
