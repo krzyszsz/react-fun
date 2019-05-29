@@ -5,16 +5,13 @@ export interface Props {
 }
 
 class FlameAnimation extends React.Component<Props, object> {
-    private pixelSize : number = 3;
+    private animationInterval : number = 15;
+    private pixelSize : number = 5;
     private sizeX : number = 150;
     private sizeY : number = 50;
-    private imageArray : Array<Array<[number, number, number]>> = new Array<Array<[number, number, number]>>(this.sizeY);
     
     private canvas1 : HTMLCanvasElement | null = null;
     private context1 : CanvasRenderingContext2D | null = null;
-    private canvas2 : HTMLCanvasElement | null = null;
-    private context2 : CanvasRenderingContext2D | null = null;
-    private firstFrameToRender : boolean = true;
     private randomPrevious : number = 0;
     private _timerID : number | null = null;
 
@@ -37,9 +34,14 @@ class FlameAnimation extends React.Component<Props, object> {
     }
 
     render() {
+        var divStyle = {
+            width:  this.sizeX*this.pixelSize + "px",
+            height: this.sizeY*this.pixelSize + "px"
+          };
+
         return (
             <div>
-                <canvas id="flameCanvas" width={this.sizeX*this.pixelSize} height={this.sizeY*this.pixelSize}>
+                <canvas id="flameCanvas" width={this.sizeX} height={this.sizeY} style={divStyle} >
                 </canvas>
             </div>
         );
@@ -58,17 +60,6 @@ class FlameAnimation extends React.Component<Props, object> {
     }
 
     init() : void {
-        if (this.canvas2 != null) {
-            return;
-        }
-    
-        // buffer canvas
-        this.canvas2 = document.createElement('canvas');
-        this.canvas2.width = this.sizeX * this.pixelSize;
-        this.canvas2.height = this.sizeY * this.pixelSize;
-        this.context2 = this.canvas2.getContext('2d');
-    
-        // real canvas
         this.canvas1 = document.getElementById("flameCanvas") as HTMLCanvasElement;
         if (this.canvas1 != null)
         {
@@ -79,19 +70,8 @@ class FlameAnimation extends React.Component<Props, object> {
     }
     
     
-    generateImageArray() : void
+    generateImageArray(imageArray : Uint8ClampedArray) : void
     {
-        if (this.firstFrameToRender) {
-            for (let x=0; x<this.sizeX; x++) {
-                this.imageArray[x] = new Array<[number, number, number]>(this.sizeY);
-                for (let y=0; y<this.sizeY; y++) {
-                    this.imageArray[x][y] = [0, 0, 0];
-                }
-            }
-    
-            this.firstFrameToRender = false;
-        }
-    
         this.randomPrevious = this.randomPrevious * 0.8 - (Math.random() - 0.5) * 0.2;    // simulates wind and random air movements
         if (this.randomPrevious < -1)
         {
@@ -103,9 +83,24 @@ class FlameAnimation extends React.Component<Props, object> {
             this.randomPrevious = 1;
         }
     
+        const lineIncrement : number = this.sizeX * 4;
+
         for (let x=0; x<this.sizeX; x++) {
+
+            const y0 = -1;
+            let index = y0 * lineIncrement + 4 * x;
+            let indexBelow = (y0+1) * lineIncrement + 4 * x;
+            let indexBelow2 = (y0+2) * lineIncrement + 4 * x;
+            let indexLeft = y0 * lineIncrement + 4 * (x - 1);
+            let indexRight = y0 * lineIncrement + 4 * (x + 1);
+
             for (let y=0; y<this.sizeY-1; y++) {
-                //const r = normalizeColor(((x + y + t/10 ) % (sizeX+sizeY) ) / (sizeX+sizeY)) ;
+
+                index += lineIncrement;
+                indexBelow += lineIncrement;
+                indexBelow2 += lineIncrement;
+                indexLeft += lineIncrement;
+                indexRight += lineIncrement;
     
                 let localRandom1 = Math.random() * 0.3 + 0.9;
                 let localRandom2 = (Math.random() - 0.5)/2;
@@ -118,46 +113,47 @@ class FlameAnimation extends React.Component<Props, object> {
     
                     Math.sqrt(y / this.sizeY) *
                     (
-                        (this.imageArray[x][y][0] * 0.08) + 
-                        (this.imageArray[x][y+1][0] * 0.9 * localRandom1) +
-                        (x > 1 ? this.imageArray[x-1][y][0] * (this.randomPrevious + localRandom2) * 0.5 : 0) +
-                        (x < this.sizeX-1 ? this.imageArray[x+1][y][0] * (-this.randomPrevious + localRandom3) * 0.5 : 0) +
-                        (y < this.sizeY-2 ? this.imageArray[x][y+2][0] * (localRandom5) * 0.5 : 0)
+                        (imageArray[index] * 0.08) + 
+                        (imageArray[indexBelow] * 0.9 * localRandom1) +
+                        (x > 1 ? imageArray[indexLeft] * (this.randomPrevious + localRandom2) * 0.5 : 0) +
+                        (x < this.sizeX-1 ? imageArray[indexRight] * (-this.randomPrevious + localRandom3) * 0.5 : 0) +
+                        (y < this.sizeY-2 ? imageArray[indexBelow2] * (localRandom5) * 0.5 : 0)
                     ) * localRandom4
                     ));
     
                 const r = this.normalizeColor(newColor) ;
-                const g = 0;
-                const b = 0;
-                this.imageArray[x][y] = [r, g, b];
+                // const g = 0;
+                // const b = 0;
+                imageArray[index] = r;
+                imageArray[index+1] = 0;//g;
+                imageArray[index+2] = 0;//b;
+                imageArray[index+3] = 255; // No transparency!
             }
     
             // Initialization vector - line on the bottom of the fire:
-            this.imageArray[x][this.sizeY-1] = [this.normalizeColor(  Math.abs(Math.sin(x * (2 * Math.PI) / (this.props.fireWidth*2) )) ) ,
-                 0,
-                 0];
+            index = 4 * (this.sizeY-1) * this.sizeX + 4 * x;
+            imageArray[index] = this.normalizeColor(  Math.abs(Math.sin(x * (2 * Math.PI) / (this.props.fireWidth*2) )) );
+            imageArray[index+1] = 0;
+            imageArray[index+2] = 0;
+            imageArray[index+3] = 255;
         }
     }
 
     draw() : void {
         this.init();
     
-        if (this.context1 == null || this.context2 == null || this.canvas2 == null) {
+        if (this.context1 == null ) {
             console.log("Context == null. Exiting.");
             return;
         }
     
-        this.generateImageArray();
-        for (let i=0; i<this.imageArray.length; i++) {
-            for (let j=0; j<this.imageArray[i].length; j++) {
-                this.context2.fillStyle = `rgb(${this.imageArray[i][j][0]},${this.imageArray[i][j][1]}, ${this.imageArray[i][j][2]})`;
-                this.context2.fillRect(i*this.pixelSize, j*this.pixelSize, this.pixelSize, this.pixelSize);
-            }
-        }
+        const imgData : ImageData = this.context1.getImageData(0, 0, this.sizeX, this.sizeY);
+        const imageArray : Uint8ClampedArray = imgData.data;
+        this.generateImageArray(imageArray);
+        this.context1.putImageData(imgData, 0, 0);
     
-        this.context1.drawImage(this.canvas2, 0, 0);
         if (this._timerID == null) {
-            this._timerID = window.setInterval(()=> window.requestAnimationFrame(this.draw), 20);
+            this._timerID = window.setInterval(()=> window.requestAnimationFrame(this.draw), this.animationInterval);
         }
     }
 }
