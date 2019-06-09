@@ -19,6 +19,7 @@ export default class SliderComponent extends React.Component<Props, object> {
             color: 'blue',
             width: this.MaxSliderValue,
             padding: '22px 0px',
+            overflow: 'hidden'
           };
 
         return (
