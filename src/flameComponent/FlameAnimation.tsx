@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export interface Props {
-    fireWidth: number;
+    value?: number;
 }
 
 class FlameAnimation extends React.Component<Props, object> {
@@ -21,8 +21,13 @@ class FlameAnimation extends React.Component<Props, object> {
         }
       }
 
-    constructor(props: Props) {
-        super(props);
+      shouldComponentUpdate(nextProps : any, nextState : object) {
+        return false;
+      }
+
+
+    constructor({value = 50}: Props) {
+        super({value});
         console.log("FlameAnimation initialized.");
         
         this.init = this.init.bind(this);
@@ -84,6 +89,7 @@ class FlameAnimation extends React.Component<Props, object> {
         }
     
         const lineIncrement : number = this.sizeX * 4;
+        const fireWidth : number = this.props.value ? this.props.value*2 : 50;
 
         for (let x=0; x<this.sizeX; x++) {
 
@@ -132,7 +138,7 @@ class FlameAnimation extends React.Component<Props, object> {
     
             // Initialization vector - line on the bottom of the fire:
             index = 4 * (this.sizeY-1) * this.sizeX + 4 * x;
-            imageArray[index] = this.normalizeColor(  Math.abs(Math.sin(x * (2 * Math.PI) / (this.props.fireWidth*2) )) );
+            imageArray[index] = this.normalizeColor(  Math.abs(Math.sin(x * (2 * Math.PI) / (fireWidth*2) )) );
             imageArray[index+1] = 0;
             imageArray[index+2] = 0;
             imageArray[index+3] = 255;
