@@ -2,32 +2,33 @@ import * as React from 'react';
 import Slider from '@material-ui/lab/Slider';
 
 export interface Props {
-    value : number
+    value? : number,
+    onSliderChange?: (event: React.ChangeEvent<{}>, value: number) => void
   }
 
+export default class SliderComponent extends React.Component<Props, object> {
 
-class SliderComponent extends React.Component<Props, object> {
-    constructor(props:Props) {
-        super(props);
-        this.onSliderChange = this.onSliderChange.bind(this);
+    public MaxSliderValue : number = 400;
+
+    constructor({value = 50, onSliderChange}:Props) {
+        super({value, onSliderChange});
     }
 
     render() {
         const divStyle = {
             color: 'blue',
-            width: 500
+            width: this.MaxSliderValue,
+            padding: '22px 0px',
           };
 
         return (
-            <div className="slidecontainer">
-                <Slider value={this.props.value} style={divStyle} onChange={this.onSliderChange} />
+            <div className="slidecontainer" style={divStyle}>
+                <Slider 
+                    style={divStyle}
+                    value={this.props.value}
+                    onChange={this.props.onSliderChange}
+                />
             </div>
         );
     }
-
-    onSliderChange() {
-        this.setState(() => {});    // TODO: Unfinished.
-    }
 }
-
-export default SliderComponent;

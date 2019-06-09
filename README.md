@@ -23,3 +23,7 @@ npm install @material-ui/core
 
 npm install @material-ui/lab
 
+Installing Redux:
+
+npm install -S redux react-redux @types/react-redux
+
