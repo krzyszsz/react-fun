@@ -1,4 +1,4 @@
-## Playing with react.
+## Graphical effects in TypeScript.
 
 [![Build Status](https://dev.azure.com/krzysztofjaniszewski0334/React-fun/_apis/build/status/krzyszsz.react-fun%20(1)?branchName=master)](https://dev.azure.com/krzysztofjaniszewski0334/React-fun/_build/latest?definitionId=3&branchName=master)
 
