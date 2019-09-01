@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/react-fun/build/static/css/main.3e545749.chunk.css",
-    "main.js": "/react-fun/build/static/js/main.1a4b61fc.chunk.js",
-    "main.js.map": "/react-fun/build/static/js/main.1a4b61fc.chunk.js.map",
+    "main.js": "/react-fun/build/static/js/main.5f5c0bc8.chunk.js",
+    "main.js.map": "/react-fun/build/static/js/main.5f5c0bc8.chunk.js.map",
     "runtime~main.js": "/react-fun/build/static/js/runtime~main.d2e22017.js",
     "runtime~main.js.map": "/react-fun/build/static/js/runtime~main.d2e22017.js.map",
-    "static/js/2.5166fe5a.chunk.js": "/react-fun/build/static/js/2.5166fe5a.chunk.js",
-    "static/js/2.5166fe5a.chunk.js.map": "/react-fun/build/static/js/2.5166fe5a.chunk.js.map",
+    "static/js/2.18678417.chunk.js": "/react-fun/build/static/js/2.18678417.chunk.js",
+    "static/js/2.18678417.chunk.js.map": "/react-fun/build/static/js/2.18678417.chunk.js.map",
     "index.html": "/react-fun/build/index.html",
-    "precache-manifest.b3126710768f04e28087a01eecd7f3c3.js": "/react-fun/build/precache-manifest.b3126710768f04e28087a01eecd7f3c3.js",
+    "precache-manifest.e9b4a4bd4f7f14a35050d47b50b2abe7.js": "/react-fun/build/precache-manifest.e9b4a4bd4f7f14a35050d47b50b2abe7.js",
     "service-worker.js": "/react-fun/build/service-worker.js",
     "static/css/main.3e545749.chunk.css.map": "/react-fun/build/static/css/main.3e545749.chunk.css.map"
   }
