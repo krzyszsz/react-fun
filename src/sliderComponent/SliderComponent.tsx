@@ -1,5 +1,5 @@
+import Slider from '@mui/material/Slider';
 import * as React from 'react';
-import Slider from '@material-ui/lab/Slider';
 
 export interface Props {
     value? : number,
