@@ -3,7 +3,7 @@ import * as React from 'react';
 
 export interface Props {
     value? : number,
-    onSliderChange?: (event: React.ChangeEvent<{}>, value: number) => void
+    onSliderChange?: (event: Event, value: number | number[], activeThumb: number) => void
   }
 
 export default class SliderComponent extends React.Component<Props, object> {
@@ -24,7 +24,7 @@ export default class SliderComponent extends React.Component<Props, object> {
 
         return (
             <div className="slidecontainer" style={divStyle}>
-                <Slider 
+                <Slider
                     style={divStyle}
                     value={this.props.value}
                     onChange={this.props.onSliderChange}

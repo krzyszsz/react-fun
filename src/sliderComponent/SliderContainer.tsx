@@ -12,8 +12,8 @@ export function mapStateToProps({ fireWidth }: IStoreState) {
 
 export function mapDispatchToProps(dispatch: Dispatch<actions.ChangeFireWidthAction>) {
   return {
-    onSliderChange: (event: React.ChangeEvent<{}>, value: number) => {
-      dispatch(actions.changeFireWidth(value))
+    onSliderChange: (event: Event, value: number | number[], activeThumb: number) => {
+      dispatch(actions.changeFireWidth(value as number))
     }      
   }
 }
